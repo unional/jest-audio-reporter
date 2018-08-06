@@ -6,14 +6,17 @@ const player = Player({})
 export = class AudioReporter {
   startAudio
   completeAudio
-  constructor(public globalConfig: jest.GlobalConfig, public options) { }
+  constructor(public globalConfig: jest.GlobalConfig, public options) {
+    if (Object.keys(options).length === 0) {
+      throw new Error('jest-audio-reporter requires option to be specified.')
+    }
+  }
   onRunStart(results: jest.AggregatedResult, options: jest.ReporterOnStartOptions) {
     if (this.completeAudio) {
       this.completeAudio.kill()
       this.completeAudio = undefined
     }
     const option = this.options.onStart
-
     if (typeof option === 'string') {
       this.startAudio = player.play(option)
     }
