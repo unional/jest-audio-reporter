@@ -15,7 +15,7 @@
     "lint": "tslint -p tsconfig.json",
     "prepublishOnly": "npm run clean && npm run build",
     "test": "tsc && jest",
-    "verify": "npm run lint && npm run coverage && npm run build && npm run dependency-check",
+    "verify": "npm run lint && npm run build && npm run coverage  && npm run dependency-check",
     "watch": "node scripts/watch.js",
     "semantic-release": "semantic-release"
   },
