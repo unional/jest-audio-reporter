@@ -18,14 +18,28 @@ Audio reporter for [`jest`](https://jestjs.io/)
     "reporters": [
       "default",
       [ "jest-audio-reporter", {
-        "onStart": "<path-to-audio>",
-        "onSuitePass": "<path-to-audio>",
-        "onSuiteFailure": "<path-to-audio>"
+        "onStart": "<path(s)-to-audio>",
+        "onStartThreshold": 3,
+        "onSuitePass": "<path(s)-to-audio>",
+        "onSuiteFailure": "<path(s)-to-audio>"
       }]
     ]
   }
 }
 ```
+
+## Options
+
+`onStart`: Specify the audio file(s) to play when the test suite starts. When specifying an array, one of the file will be picked at random.
+`onStartThreshold`: `onStart` will not play audio if the tests are estimated to finish less when this threshold. Default is 3 seconds.
+`onSuitePass`: Specify the audio file(s) to play when the test suite passes. When specifying an array, one of the file will be picked at random.
+`onSuiteFailure`: Specify the audio file(s) to play when the test suite failes. When specifying an array, one of the file will be picked at random.
+
+## Watch mode
+
+When `jest` is running in watch mode, the following special behavior applies:
+
+- `onSuitePass` will play only on first run and when the test suite recoveres from failure.
 
 ## Audio Copyright Disclaimer
 

@@ -2,33 +2,86 @@
 // import play from 'audio-play'
 import Player from 'play-sound'
 
-const player = Player({})
+import { store } from './store'
+
+interface Options {
+  onStart: string | string[],
+  onStartThreshold: number,
+  onSuitePass: string | string[],
+  onSuiteFailure: string | string[]
+}
+
 export = class AudioReporter {
-  startAudio
-  completeAudio
-  constructor(public globalConfig: jest.GlobalConfig, public options) {
+  player = Player({})
+  options
+  constructor(public globalConfig: jest.GlobalConfig, options: Partial<Options>) {
+    // console.info(globalConfig)
     if (Object.keys(options).length === 0) {
       throw new Error('jest-audio-reporter requires option to be specified.')
     }
+    this.options = this.preProcessOptions(options)
   }
-  onRunStart(results: jest.AggregatedResult, options: jest.ReporterOnStartOptions) {
-    if (this.completeAudio) {
-      this.completeAudio.kill()
-      this.completeAudio = undefined
+  onRunStart(_results: jest.AggregatedResult, options: jest.ReporterOnStartOptions) {
+    if (store.completeAudio) {
+      store.completeAudio.kill()
+      store.completeAudio = undefined
     }
-    const option = this.options.onStart
-    if (typeof option === 'string') {
-      this.startAudio = player.play(option)
+
+    if (options.estimatedTime <= this.options.onStartThreshold) return
+
+    const file = pickOne(this.options.onStart)
+    store.startAudio = this.player.play(file)
+  }
+  onRunComplete(_contexts, results: jest.AggregatedResult) {
+    if (store.startAudio) {
+      store.startAudio.kill()
+      store.startAudio = undefined
+    }
+    if (results.numTotalTestSuites === 0) return
+    if (results.wasInterrupted) return
+
+    if (results.numFailedTestSuites === 0) {
+      if (this.globalConfig.watch && store.doesLastRunPass) return
+      store.doesLastRunPass = true
+      if (this.options.onSuitePass.length === 0) return
+      const file = pickOne(this.options.onSuitePass)
+      return new Promise(a => {
+        store.completeAudio = this.player.play(file, a)
+      })
+    }
+    else {
+      store.doesLastRunPass = false
+      if (this.options.onSuiteFailure.length === 0) return
+      const file = pickOne(this.options.onSuiteFailure)
+      return new Promise(a => {
+        store.completeAudio = this.player.play(file, a)
+      })
     }
   }
-  onRunComplete(contexts, results: jest.AggregatedResult) {
-    if (this.startAudio) {
-      this.startAudio.kill()
-      this.startAudio = undefined
+  private preProcessOptions(options) {
+    return {
+      onStart: this.preProcessEntry(options.onStart),
+      onSuitePass: this.preProcessEntry(options.onSuitePass),
+      onSuiteFailure: this.preProcessEntry(options.onSuiteFailure),
+      onStartThreshold: options.onStartThreshold || 3
     }
-    const audioFile = results.numFailedTestSuites === 0 ?
-      this.options.onSuitePass :
-      this.options.onSuiteFailure
-    this.completeAudio = player.play(audioFile)
   }
+  private preProcessEntry(entry) {
+    if (!entry) return []
+
+    if (typeof entry === 'string') {
+      return [this.resolvePath(entry)]
+    }
+    if (Array.isArray(entry)) {
+      return entry.map(e => this.resolvePath(e))
+    }
+  }
+
+  private resolvePath(path: string) {
+    return path.replace(`<rootDir>`, this.globalConfig.rootDir)
+  }
+}
+
+function pickOne(arr: Array<any>) {
+  return arr[Math.floor(Math.random() * arr.length)]
 }

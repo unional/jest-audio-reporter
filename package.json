@@ -16,7 +16,7 @@
     "prepublishOnly": "npm run clean && npm run build",
     "test": "tsc && jest",
     "verify": "npm run lint && npm run build && npm run coverage  && npm run dependency-check",
-    "watch": "node scripts/watch.js",
+    "watch": "tsc && jest --watch",
     "semantic-release": "semantic-release"
   },
   "license": "MIT",
@@ -28,7 +28,17 @@
     "url": "https://github.com/unional/jest-audio-reporter/issues"
   },
   "homepage": "https://github.com/unional/jest-audio-reporter",
+  "keywords": [
+    "jest",
+    "reporters",
+    "sounds"
+  ],
   "jest": {
+    "globals": {
+      "ts-jest": {
+        "enableTsDiagnostics": true
+      }
+    },
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
@@ -43,7 +53,8 @@
       [
         "<rootDir>/dist/index.js",
         {
-          "onSuitePass": "./audio/昇格.mp3"
+          "onSuitePass": "<rootDir>/audio/昇格.mp3",
+          "onSuiteFailure": "./audio/48 Dragon Quest V PS2 - Cursed Item.mp3"
         }
       ]
     ],
@@ -54,6 +65,7 @@
   "devDependencies": {
     "@types/jest": "^23.3.1",
     "@types/node": "^10.5.6",
+    "assertron": "^5.1.4",
     "dependency-check": "^3.2.0",
     "eslint": "^5.3.0",
     "eslint-plugin-unional": "^1.0.0",
