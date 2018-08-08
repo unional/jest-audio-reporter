@@ -40,6 +40,7 @@ export = class AudioReporter {
     }
   }
   private playComplete(file: string | undefined) {
+    console.log(this.globalConfig)
     if (!file) return
     if (isWatch(this.globalConfig)) {
       store.completeAudio = this.player.play(file)
