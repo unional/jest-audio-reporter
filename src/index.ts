@@ -22,6 +22,7 @@ export = class AudioReporter {
     store.startAudio = this.player.play(file)
   }
   onRunComplete(_contexts, results: jest.AggregatedResult) {
+    console.log(this.globalConfig)
     if (store.startAudio) {
       store.startAudio.kill()
       store.startAudio = undefined
@@ -40,7 +41,6 @@ export = class AudioReporter {
     }
   }
   private playComplete(file: string | undefined) {
-    console.log(this.globalConfig)
     if (!file) return
     if (isWatch(this.globalConfig)) {
       store.completeAudio = this.player.play(file)
