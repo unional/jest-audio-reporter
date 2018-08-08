@@ -73,7 +73,6 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "parse-strings-in-object": "^1.2.0",
     "play-sound": "^1.1.2",
     "rc": "^1.2.8"
   }
