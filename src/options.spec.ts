@@ -78,3 +78,25 @@ test('jest config merge with rc config', () => {
     onSuiteFailure: []
   })
 })
+
+test('no audio defined', () => {
+  const cwd = process.cwd()
+  processOptions(
+    cwd, {
+      onStart: [],
+      onSuitePass: [],
+      onSuiteFailure: []
+    }, {
+    })
+})
+
+test('no valid audio defined', () => {
+  const cwd = process.cwd()
+  processOptions(
+    cwd, {
+      onStart: ['invalid'],
+      onSuitePass: [],
+      onSuiteFailure: []
+    }, {
+    })
+})

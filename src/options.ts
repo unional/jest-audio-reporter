@@ -68,6 +68,7 @@ export function processOptions(rootDir: string, rcOptions, rawJestOptions): Runt
       console.warn(`Please configure it in jest config or in .jest-audio-reporterrc`)
     }
     else {
+      // istanbul ignore next
       console.warn(`audio files specified in the configuration does not exist. Please check your jest config${
         rcOptions.configs ?
           ` or your rc files:\n${rcOptions.configs.join('\n')}` : ''
