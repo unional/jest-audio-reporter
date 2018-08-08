@@ -52,13 +52,7 @@
     ],
     "reporters": [
       "default",
-      [
-        "<rootDir>/dist/index.js",
-        {
-          "onSuitePass": "<rootDir>/audio/昇格.mp3",
-          "onSuiteFailure": "./audio/48 Dragon Quest V PS2 - Cursed Item.mp3"
-        }
-      ]
+      "<rootDir>/dist/index.js"
     ],
     "roots": [
       "<rootDir>/src"
@@ -79,6 +73,7 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "play-sound": "^1.1.2"
+    "play-sound": "^1.1.2",
+    "rc": "^1.2.8"
   }
 }

@@ -1,25 +1,14 @@
-// import loader from 'audio-loader'
-// import play from 'audio-play'
-import Player from 'play-sound'
+import Player from 'play-sound';
+import { getProcessedRCOption, Options, processOptions, rawRCOptions, RuntimeOptions } from './options';
+import { store } from './store';
 
-import { store } from './store'
-
-interface Options {
-  onStart: string | string[],
-  onStartThreshold: number,
-  onSuitePass: string | string[],
-  onSuiteFailure: string | string[]
-}
+const rcOptions = getProcessedRCOption(rawRCOptions)
 
 export = class AudioReporter {
   player = Player({})
-  options
+  options: RuntimeOptions
   constructor(public globalConfig: jest.GlobalConfig, options: Partial<Options>) {
-    // console.info(globalConfig)
-    if (Object.keys(options).length === 0) {
-      throw new Error('jest-audio-reporter requires option to be specified.')
-    }
-    this.options = this.preProcessOptions(options)
+    this.options = processOptions(globalConfig.rootDir, rcOptions, options)
   }
   onRunStart(_results: jest.AggregatedResult, options: jest.ReporterOnStartOptions) {
     if (store.completeAudio) {
@@ -41,47 +30,33 @@ export = class AudioReporter {
     if (results.wasInterrupted) return
 
     if (results.numFailedTestSuites === 0) {
-      if (this.globalConfig.watch && store.doesLastRunPass) return
+      if (isWatch(this.globalConfig) && store.doesLastRunPass) return
       store.doesLastRunPass = true
-      if (this.options.onSuitePass.length === 0) return
-      const file = pickOne(this.options.onSuitePass)
-      return new Promise(a => {
-        store.completeAudio = this.player.play(file, a)
-      })
+      return this.playComplete(pickOne(this.options.onSuitePass))
     }
     else {
       store.doesLastRunPass = false
-      if (this.options.onSuiteFailure.length === 0) return
-      const file = pickOne(this.options.onSuiteFailure)
+      return this.playComplete(pickOne(this.options.onSuiteFailure))
+    }
+  }
+  private playComplete(file: string | undefined) {
+    if (!file) return
+    if (isWatch(this.globalConfig)) {
+      store.completeAudio = this.player.play(file)
+    }
+    else {
       return new Promise(a => {
         store.completeAudio = this.player.play(file, a)
       })
     }
-  }
-  private preProcessOptions(options) {
-    return {
-      onStart: this.preProcessEntry(options.onStart),
-      onSuitePass: this.preProcessEntry(options.onSuitePass),
-      onSuiteFailure: this.preProcessEntry(options.onSuiteFailure),
-      onStartThreshold: options.onStartThreshold || 3
-    }
-  }
-  private preProcessEntry(entry) {
-    if (!entry) return []
-
-    if (typeof entry === 'string') {
-      return [this.resolvePath(entry)]
-    }
-    if (Array.isArray(entry)) {
-      return entry.map(e => this.resolvePath(e))
-    }
-  }
-
-  private resolvePath(path: string) {
-    return path.replace(`<rootDir>`, this.globalConfig.rootDir)
   }
 }
 
 function pickOne(arr: Array<any>) {
+  if (arr.length === 0) return undefined
   return arr[Math.floor(Math.random() * arr.length)]
+}
+
+function isWatch(globalConfig) {
+  return globalConfig.watch || globalConfig.watchAll
 }
