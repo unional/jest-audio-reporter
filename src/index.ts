@@ -22,7 +22,6 @@ export = class AudioReporter {
     store.startAudio = this.player.play(file)
   }
   onRunComplete(_contexts, results: jest.AggregatedResult) {
-    console.log(this.globalConfig)
     if (store.startAudio) {
       store.startAudio.kill()
       store.startAudio = undefined
@@ -59,5 +58,5 @@ function pickOne(arr: Array<any>) {
 }
 
 function isWatch(globalConfig) {
-  return globalConfig.watch || globalConfig.watchAll || globalConfig.watchman
+  return globalConfig.watch || globalConfig.watchman
 }
