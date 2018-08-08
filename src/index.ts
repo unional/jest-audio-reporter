@@ -30,7 +30,7 @@ export = class AudioReporter {
     if (results.wasInterrupted) return
 
     if (results.numFailedTestSuites === 0) {
-      if (this.globalConfig.watch && store.doesLastRunPass) return
+      if (isWatch(this.globalConfig) && store.doesLastRunPass) return
       store.doesLastRunPass = true
       return this.playComplete(pickOne(this.options.onSuitePass))
     }
@@ -41,8 +41,7 @@ export = class AudioReporter {
   }
   private playComplete(file: string | undefined) {
     if (!file) return
-    console.log(this.globalConfig)
-    if (this.globalConfig.watch) {
+    if (isWatch(this.globalConfig)) {
       store.completeAudio = this.player.play(file)
     }
     else {
@@ -56,4 +55,8 @@ export = class AudioReporter {
 function pickOne(arr: Array<any>) {
   if (arr.length === 0) return undefined
   return arr[Math.floor(Math.random() * arr.length)]
+}
+
+function isWatch(globalConfig) {
+  return globalConfig.watch || globalConfig.watchAll || globalConfig.watchman
 }
