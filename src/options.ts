@@ -37,8 +37,7 @@ export function getProcessedRCOption(rawRCOptions) {
 
 function processRCFileEntry(files: string | string[] | undefined, dirs: string[]) {
   if (!files) return []
-  const entries = !files ? [] :
-    typeof files === 'string' ? [files] : files
+  const entries = typeof files === 'string' ? [files] : files
   const validFiles: string[] = []
   entries.forEach(e => {
     if (path.isAbsolute(e)) {

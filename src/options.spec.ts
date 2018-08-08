@@ -30,6 +30,13 @@ describe('getProcessedRCOptions', () => {
       onStart: [actual]
     })
   })
+  test(`not exist file is trimmed`, () => {
+    const dirConfig = path.join(__dirname, '.jest-audio-reporterrc')
+    a.satisfy(getProcessedRCOption({ onStart: 'not-exist.mp3', config: dirConfig, configs: [dirConfig] }), {
+      onStart: a => a.length === 0
+    })
+  })
+
   test(`support multiple config`, () => {
     const cwd = process.cwd()
     const config = path.join(cwd, '.jest-audio-reporterrc')
@@ -41,6 +48,15 @@ describe('getProcessedRCOptions', () => {
 
     a.satisfy(getProcessedRCOption({ onStart: actual, config, configs: [dirConfig, config] }), {
       onStart: [actual]
+    })
+  })
+  test(`support array`, () => {
+    const cwd = process.cwd()
+    const config = path.join(cwd, '.jest-audio-reporterrc')
+    const failureFile = path.resolve(cwd, 'audio/昇格.mp3')
+    const actual = getProcessedRCOption({ onSuiteFailure: ['audio/昇格.mp3'], config, configs: [config] })
+    a.satisfy(actual, {
+      onSuiteFailure: [failureFile]
     })
   })
 })
