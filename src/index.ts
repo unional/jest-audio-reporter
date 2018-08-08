@@ -58,5 +58,5 @@ function pickOne(arr: Array<any>) {
 }
 
 function isWatch(globalConfig) {
-  return globalConfig.watch || globalConfig.watchman
+  return globalConfig.watch || globalConfig.watchAll
 }
