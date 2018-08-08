@@ -11,6 +11,10 @@
 
 Audio reporter for [`jest`](https://jestjs.io/)
 
+## Configuration
+
+You can configure `jest-audio-reporter` inside `jest` configuration:
+
 ```js
 // package.json
 {
@@ -27,6 +31,11 @@ Audio reporter for [`jest`](https://jestjs.io/)
   }
 }
 ```
+
+Since the audio to be played is more of a personal preference,
+`jest-audio-reporter` supports configuration through `.jest-audio-reporterrc` file.
+Most likely you will put this file under the root of all your projects or in your home folder.
+Please refer to [`rc`](https://www.npmjs.com/package/rc) for more information.
 
 ## Options
 

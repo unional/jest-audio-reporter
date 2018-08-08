@@ -4,10 +4,6 @@ import path from 'path';
 import AudioReporter from '.';
 import { store } from './store';
 
-test('no option throws', async () => {
-  await a.throws(() => new AudioReporter(gc(), {}))
-})
-
 test('support rootDir', () => {
   const rootDir = process.cwd()
   const subject = new AudioReporter(gc({ rootDir }), {
@@ -125,10 +121,10 @@ describe('watch mode', () => {
     subject.onRunComplete({}, ar({ numTotalTestSuites: 1, numFailedTestSuites: 0 }))
     o.end()
   })
-  test('do not play onSuitePass/Failure on interruption', () => {
+  test.only('do not play onSuitePass/Failure on interruption', () => {
     const subject = new AudioReporter(gc({ watch: true }), {
-      onSuitePass: 'a.mp3',
-      onSuiteFailure: 'b.mp3'
+      onSuitePass: 'audio/昇格.mp3',
+      onSuiteFailure: 'audio/昇格.mp3'
     })
     store.reset()
 

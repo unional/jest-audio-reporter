@@ -1,16 +1,14 @@
 import Player from 'play-sound';
-import { Options, processOptions } from './options';
+import { getProcessedRCOption, Options, processOptions, rawRCOptions, RuntimeOptions } from './options';
 import { store } from './store';
 
+const rcOptions = getProcessedRCOption(rawRCOptions)
 
 export = class AudioReporter {
   player = Player({})
-  options
+  options: RuntimeOptions
   constructor(public globalConfig: jest.GlobalConfig, options: Partial<Options>) {
-    this.options = processOptions(globalConfig.rootDir, options)
-    if (Object.keys(options).length === 0) {
-      throw new Error('jest-audio-reporter requires option to be specified.')
-    }
+    this.options = processOptions(globalConfig.rootDir, rcOptions, options)
   }
   onRunStart(_results: jest.AggregatedResult, options: jest.ReporterOnStartOptions) {
     if (store.completeAudio) {
