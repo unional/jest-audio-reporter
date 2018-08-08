@@ -42,13 +42,13 @@ test('Will play onStart if test estimated to take more than 3s to run', () => {
 
 test('pick one if onStart is an array', () => {
   const subject = new AudioReporter(gc(), {
-    onStart: ['audio/昇格.mp3', '勝利ジングル.mp3']
+    onStart: ['audio/昇格.mp3', 'audio/勝利ジングル.mp3']
   })
   const o = new AssertOrder(1)
   subject.player = {
     play(file) {
       o.once(1)
-      t(file === 'audio/昇格.mp3' || file === '勝利ジングル.mp3')
+      t(subject.options.onStart.indexOf(file) >= 0)
     }
   }
   subject.onRunStart(ar(), { estimatedTime: 3.01, showStatus: false })
@@ -57,13 +57,13 @@ test('pick one if onStart is an array', () => {
 })
 test('pick one if onSuitePass is an array', () => {
   const subject = new AudioReporter(gc(), {
-    onSuitePass: ['audio/昇格.mp3', '勝利ジングル.mp3']
+    onSuitePass: ['audio/昇格.mp3', 'audio/勝利ジングル.mp3']
   })
   const o = new AssertOrder(1)
   subject.player = {
     play(file) {
       o.once(1)
-      t(file === 'audio/昇格.mp3' || file === '勝利ジングル.mp3')
+      t(subject.options.onSuitePass.indexOf(file) >= 0)
     }
   }
   subject.onRunComplete({}, ar({ numTotalTestSuites: 1, numFailedTestSuites: 0 }))
@@ -71,13 +71,13 @@ test('pick one if onSuitePass is an array', () => {
 })
 test('pick one if onSuiteFailure is an array', () => {
   const subject = new AudioReporter(gc(), {
-    onSuiteFailure: ['audio/昇格.mp3', '勝利ジングル.mp3']
+    onSuiteFailure: ['audio/昇格.mp3', 'audio/勝利ジングル.mp3']
   })
   const o = new AssertOrder(1)
   subject.player = {
     play(file) {
       o.once(1)
-      t(file === 'audio/昇格.mp3' || file === '勝利ジングル.mp3')
+      t(subject.options.onSuiteFailure.indexOf(file) >= 0)
     }
   }
   subject.onRunComplete({}, ar({ numTotalTestSuites: 1, numFailedTestSuites: 1 }))
@@ -110,18 +110,22 @@ describe('watch mode', () => {
   })
   test('play onSuitePass again on pass after failure', () => {
     const subject = new AudioReporter(gc({ watch: true }), {
-      onSuitePass: 'audio/昇格.mp3'
+      onSuitePass: 'audio/昇格.mp3',
+      onSuiteFailure: 'audio/昇格.mp3'
     })
     store.reset()
-
     const o = new AssertOrder(1)
-    subject.player = { play() { o.exactly(1, 2) } }
+    subject.player = {
+      play() {
+        o.exactly(1, 3)
+      }
+    }
     subject.onRunComplete({}, ar({ numTotalTestSuites: 1, numFailedTestSuites: 0 }))
     subject.onRunComplete({}, ar({ numTotalTestSuites: 1, numFailedTestSuites: 1 }))
     subject.onRunComplete({}, ar({ numTotalTestSuites: 1, numFailedTestSuites: 0 }))
     o.end()
   })
-  test.only('do not play onSuitePass/Failure on interruption', () => {
+  test('do not play onSuitePass/Failure on interruption', () => {
     const subject = new AudioReporter(gc({ watch: true }), {
       onSuitePass: 'audio/昇格.mp3',
       onSuiteFailure: 'audio/昇格.mp3'
