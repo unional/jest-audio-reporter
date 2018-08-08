@@ -39,10 +39,10 @@ Please refer to [`rc`](https://www.npmjs.com/package/rc) for more information.
 
 ## Options
 
-`onStart`: Specify the audio file(s) to play when the test suite starts. When specifying an array, one of the file will be picked at random.
-`onStartThreshold`: `onStart` will not play audio if the tests are estimated to finish less when this threshold. Default is 3 seconds.
-`onSuitePass`: Specify the audio file(s) to play when the test suite passes. When specifying an array, one of the file will be picked at random.
-`onSuiteFailure`: Specify the audio file(s) to play when the test suite failes. When specifying an array, one of the file will be picked at random.
+- `onStart`: Specify the audio file(s) to play when the test suite starts. When specifying an array, one of the file will be picked at random.
+- `onStartThreshold`: `onStart` will not play audio if the tests are estimated to finish less when this threshold. Default is 3 seconds.
+- `onSuitePass`: Specify the audio file(s) to play when the test suite passes. When specifying an array, one of the file will be picked at random.
+- `onSuiteFailure`: Specify the audio file(s) to play when the test suite failes. When specifying an array, one of the file will be picked at random.
 
 ## Watch mode
 
