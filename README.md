@@ -50,6 +50,11 @@ When `jest` is running in watch mode, the following special behavior applies:
 
 - `onSuitePass` will play only on first run and when the test suite recoveres from failure.
 
+## For Windows
+
+`jest-audio-reporter` using [`play-sound`](https://www.npmjs.com/package/play-sound) internally.
+For Windows, you will need to install [`mplayer`](https://www.mplayerhq.hu/).
+
 ## Audio Copyright Disclaimer
 
 In order to avoid potential licensing issue, no audio files are included in the package.
