@@ -1,6 +1,7 @@
 import t from 'assert';
 import a, { AssertOrder } from 'assertron';
 import path from 'path';
+import { has } from 'satisfier';
 import AudioReporter from '.';
 import { store } from './store';
 
@@ -10,7 +11,7 @@ test('support rootDir', () => {
     onStart: '<rootDir>/audio/昇格.mp3'
   })
 
-  a.satisfy(subject.options.onStart, [path.resolve(rootDir, 'audio/昇格.mp3')])
+  a.satisfy(subject.options.onStart, has(path.resolve(rootDir, 'audio/昇格.mp3')))
 })
 
 test('Will not play onSuitePass if no test ran', () => {

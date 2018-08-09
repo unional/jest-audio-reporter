@@ -3,9 +3,10 @@ import { getProcessedRCOption, Options, processOptions, rawRCOptions, RuntimeOpt
 import { store } from './store';
 
 const rcOptions = getProcessedRCOption(rawRCOptions)
+const player = Player({})
 
 export = class AudioReporter {
-  player = Player({})
+  player = player
   options: RuntimeOptions
   constructor(public globalConfig: jest.GlobalConfig, options: Partial<Options>) {
     this.options = processOptions(globalConfig.rootDir, rcOptions, options)
