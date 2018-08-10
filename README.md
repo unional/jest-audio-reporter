@@ -57,12 +57,9 @@ For Windows, you will need to install [`mplayer`](https://www.mplayerhq.hu/).
 
 ## Audio Copyright Disclaimer
 
-In order to avoid potential licensing issue, no audio files are included in the package.
+In order to avoid potential copyright issue, no audio files are included in the package.
 
-The audio files used for testing in the repository comes from
-
-- <https://dova-s.jp>
-- <https://www.woodus.com/den/music/>
+The audio files used for testing in this repository comes from <https://dova-s.jp>
 
 Please refer to them for copyright information.
 
