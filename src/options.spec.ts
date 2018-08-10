@@ -18,14 +18,14 @@ describe('getProcessedRCOptions', () => {
   test('simple string is convert to entry in array', () => {
     const cwd = process.cwd()
     const config = path.join(cwd, '.jest-audio-reporterrc')
-    a.satisfy(getProcessedRCOption({ onStart: 'audio/昇格.mp3', config, configs: [config] }), {
-      onStart: [path.resolve(cwd, 'audio/昇格.mp3')]
+    a.satisfy(getProcessedRCOption({ onStart: 'audio/onSuitePass/昇格.mp3', config, configs: [config] }), {
+      onStart: [path.resolve(cwd, 'audio/onSuitePass/昇格.mp3')]
     })
   })
   test(`support absolute path`, () => {
     const cwd = process.cwd()
     const dirConfig = path.join(__dirname, '.jest-audio-reporterrc')
-    const actual = path.resolve(cwd, 'audio/昇格.mp3')
+    const actual = path.resolve(cwd, 'audio/onSuitePass/昇格.mp3')
     a.satisfy(getProcessedRCOption({ onStart: actual, config: dirConfig, configs: [dirConfig] }), {
       onStart: [actual]
     })
@@ -41,7 +41,7 @@ describe('getProcessedRCOptions', () => {
     const cwd = process.cwd()
     const config = path.join(cwd, '.jest-audio-reporterrc')
     const dirConfig = path.join(__dirname, '.jest-audio-reporterrc')
-    const actual = path.resolve(cwd, 'audio/昇格.mp3')
+    const actual = path.resolve(cwd, 'audio/onSuitePass/昇格.mp3')
     a.satisfy(getProcessedRCOption({ onStart: actual, config: dirConfig, configs: [config, dirConfig] }), {
       onStart: [actual]
     })
@@ -53,8 +53,8 @@ describe('getProcessedRCOptions', () => {
   test(`support array`, () => {
     const cwd = process.cwd()
     const config = path.join(cwd, '.jest-audio-reporterrc')
-    const failureFile = path.resolve(cwd, 'audio/昇格.mp3')
-    const actual = getProcessedRCOption({ onSuiteFailure: ['audio/昇格.mp3'], config, configs: [config] })
+    const failureFile = path.resolve(cwd, 'audio/onSuitePass/昇格.mp3')
+    const actual = getProcessedRCOption({ onSuiteFailure: ['audio/onSuitePass/昇格.mp3'], config, configs: [config] })
     a.satisfy(actual, {
       onSuiteFailure: [failureFile]
     })
@@ -86,10 +86,10 @@ test('jest config merge with rc config', () => {
       onSuiteFailure: []
     },
     {
-      onStart: 'audio/昇格.mp3'
+      onStart: 'audio/onSuitePass/昇格.mp3'
     })
   a.satisfy(options, {
-    onStart: ['init-start.mp3', 'audio/昇格.mp3'],
+    onStart: ['init-start.mp3', 'audio/onSuitePass/昇格.mp3'],
     onSuitePass: [],
     onSuiteFailure: []
   })

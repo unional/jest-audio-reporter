@@ -1,0 +1,15 @@
+{
+  "onStart": [
+    "audio/onStart/05-House.mp3"
+  ],
+  "onSuitePass": [
+    "audio/onSuitePass/RPG系ジングル.mp3",
+    "audio/onSuitePass/勝利ジングル.mp3",
+    "audio/onSuitePass/思いっきりRPGっぽいジングル.mp3",
+    "audio/onSuitePass/昇格.mp3",
+    "audio/onSuitePass/栄光のファンファーレ.mp3"
+  ],
+  "onSuiteFailure": [
+    "audio/onSuiteFailure/RPG系ジングル_3.mp3"
+  ]
+}

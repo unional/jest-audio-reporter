@@ -11,13 +11,15 @@ export = class AudioReporter {
   constructor(public globalConfig: jest.GlobalConfig, options: Partial<Options>) {
     this.options = processOptions(globalConfig.rootDir, rcOptions, options)
   }
-  onRunStart(_results: jest.AggregatedResult, options: jest.ReporterOnStartOptions) {
+  onRunStart(results: jest.AggregatedResult, options: jest.ReporterOnStartOptions) {
     if (store.completeAudio) {
       store.completeAudio.kill()
       store.completeAudio = undefined
     }
 
-    if (options.estimatedTime <= this.options.onStartThreshold) return
+    if (results.numTotalTestSuites === 0 ||
+      options.estimatedTime > 0 &&
+      options.estimatedTime <= this.options.onStartThreshold) return
 
     const file = pickOne(this.options.onStart)
     store.startAudio = this.player.play(file)
