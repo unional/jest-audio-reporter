@@ -1,15 +1,21 @@
 {
-  "onStart": [
-    "audio/onStart/05-House.mp3"
-  ],
+  // "onStart": [
+  //   "audio/onStart/05-House.mp3"
+  // ],
   "onSuitePass": [
-    "audio/onSuitePass/RPG系ジングル.mp3",
-    "audio/onSuitePass/勝利ジングル.mp3",
-    "audio/onSuitePass/思いっきりRPGっぽいジングル.mp3",
+    // "audio/onSuitePass/RPG系ジングル.mp3",
+    // "audio/onSuitePass/勝利ジングル.mp3",
+    // "audio/onSuitePass/思いっきりRPGっぽいジングル.mp3",
     "audio/onSuitePass/昇格.mp3",
-    "audio/onSuitePass/栄光のファンファーレ.mp3"
+    "audio/onSuitePass/game_swordman-win1.mp3",
+    "audio/onSuitePass/mens-ou1.mp3",
+    "audio/onSuitePass/08 - Item Catch.mp3",
+    "audio/onSuitePass/info-girl1_info-girl1-yokudekimashita1.mp3"
+    // "audio/onSuitePass/栄光のファンファーレ.mp3"
   ],
   "onSuiteFailure": [
-    "audio/onSuiteFailure/RPG系ジングル_3.mp3"
+    // "audio/onSuiteFailure/RPG系ジングル_3.mp3"
+    "audio/onSuiteFailure/game_swordman-attack2.mp3",
+    "audio/onSuiteFailure/info-girl1_info-girl1-zannen1.mp3"
   ]
 }
