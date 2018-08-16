@@ -2,7 +2,6 @@ import t from 'assert';
 import { AssertOrder } from 'assertron';
 import AudioReporter from '.';
 import { RuntimeOptions } from './options';
-import { state } from './state';
 import { store } from './store';
 
 test('Will not play onSuitePass if no test ran', () => {
@@ -196,13 +195,13 @@ describe('watch mode', () => {
 })
 
 test('when debug = true, log is enabled', () => {
-  state.devel = true
+  store.devel = true
   try {
     const subject = new AudioReporter(gc(), { debug: true })
     t.strictEqual(subject.log.enabled, true)
   }
   catch {
-    state.devel = false
+    store.devel = false
   }
 })
 

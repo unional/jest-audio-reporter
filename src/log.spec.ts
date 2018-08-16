@@ -1,5 +1,14 @@
 import t from 'assert'
-import { logOptions } from './log';
+import { logOptions, createLog } from './log';
+
+test('enabled log will print', () => {
+  const log = createLog()
+  log.enabled = true
+  let actual
+  log.writer = { info(msg) { actual = msg } } as any
+  log.debug('should print')
+  t.strictEqual(actual, 'should print')
+})
 
 test('log config location and option', () => {
   const c = context()

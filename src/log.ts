@@ -1,12 +1,14 @@
-import { state } from './state';
+import { store } from './store';
 
 export function createLog() {
   return {
     enabled: false,
+    writer: console,
     debug(...args) {
-      if (this.enabled && !state.devel) {
+      if (store.devel) return
+      if (this.enabled) {
         // istanbul ignore next
-        console.info(...args)
+        this.writer.info(...args)
       }
     }
   }

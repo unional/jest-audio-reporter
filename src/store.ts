@@ -1,4 +1,5 @@
 export interface Store {
+  devel: boolean,
   startAudio?: any,
   completeAudio?: any,
   doesLastRunPass: boolean,
@@ -6,6 +7,7 @@ export interface Store {
 }
 
 export const store: Store = {
+  devel: false,
   doesLastRunPass: false,
   reset() {
     store.completeAudio = undefined,
