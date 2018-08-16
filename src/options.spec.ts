@@ -1,24 +1,29 @@
 import a from 'assertron';
 import path from 'path';
-import { getProcessedRCOption, processOptions } from './options';
+import { processOptions } from './options';
 
-describe('getProcessedRCOptions', () => {
-  test('no config returns files as empty array', () => {
-    a.satisfy(getProcessedRCOption({}), {
+describe('processOptions', () => {
+  test('no config returns options with empty array', () => {
+    a.satisfy(processOptions({}), {
       onStart: [],
       onSuitePass: [],
       onSuiteFailure: []
     })
   })
   test(`onStartThreshold is parsed as int`, () => {
-    a.satisfy(getProcessedRCOption({ onStartThreshold: '4' }), {
+    a.satisfy(processOptions({ onStartThreshold: '4' }), {
       onStartThreshold: 4
+    })
+  })
+  test('onStartThreshold is default to 3', () => {
+    a.satisfy(processOptions({}), {
+      onStartThreshold: 3
     })
   })
   test('simple string is convert to entry in array', () => {
     const cwd = process.cwd()
     const config = path.join(cwd, '.jest-audio-reporterrc')
-    a.satisfy(getProcessedRCOption({ onStart: 'audio/onSuitePass/昇格.mp3', config, configs: [config] }), {
+    a.satisfy(processOptions({ onStart: 'audio/onSuitePass/昇格.mp3', config, configs: [config] }), {
       onStart: [path.resolve(cwd, 'audio/onSuitePass/昇格.mp3')]
     })
   })
@@ -26,13 +31,13 @@ describe('getProcessedRCOptions', () => {
     const cwd = process.cwd()
     const dirConfig = path.join(__dirname, '.jest-audio-reporterrc')
     const actual = path.resolve(cwd, 'audio/onSuitePass/昇格.mp3')
-    a.satisfy(getProcessedRCOption({ onStart: actual, config: dirConfig, configs: [dirConfig] }), {
+    a.satisfy(processOptions({ onStart: actual, config: dirConfig, configs: [dirConfig] }), {
       onStart: [actual]
     })
   })
   test(`not exist file is trimmed`, () => {
     const dirConfig = path.join(__dirname, '.jest-audio-reporterrc')
-    a.satisfy(getProcessedRCOption({ onStart: 'not-exist.mp3', config: dirConfig, configs: [dirConfig] }), {
+    a.satisfy(processOptions({ onStart: 'not-exist.mp3', config: dirConfig, configs: [dirConfig] }), {
       onStart: a => a.length === 0
     })
   })
@@ -42,11 +47,11 @@ describe('getProcessedRCOptions', () => {
     const config = path.join(cwd, '.jest-audio-reporterrc')
     const dirConfig = path.join(__dirname, '.jest-audio-reporterrc')
     const actual = path.resolve(cwd, 'audio/onSuitePass/昇格.mp3')
-    a.satisfy(getProcessedRCOption({ onStart: actual, config: dirConfig, configs: [config, dirConfig] }), {
+    a.satisfy(processOptions({ onStart: actual, config: dirConfig, configs: [config, dirConfig] }), {
       onStart: [actual]
     })
 
-    a.satisfy(getProcessedRCOption({ onStart: actual, config, configs: [dirConfig, config] }), {
+    a.satisfy(processOptions({ onStart: actual, config, configs: [dirConfig, config] }), {
       onStart: [actual]
     })
   })
@@ -54,65 +59,13 @@ describe('getProcessedRCOptions', () => {
     const cwd = process.cwd()
     const config = path.join(cwd, '.jest-audio-reporterrc')
     const failureFile = path.resolve(cwd, 'audio/onSuitePass/昇格.mp3')
-    const actual = getProcessedRCOption({ onSuiteFailure: ['audio/onSuitePass/昇格.mp3'], config, configs: [config] })
+    const actual = processOptions({
+      onSuiteFailure: ['audio/onSuitePass/昇格.mp3'],
+      config,
+      configs: [config]
+    })
     a.satisfy(actual, {
       onSuiteFailure: [failureFile]
     })
   })
-})
-
-
-test('get info from rc file', () => {
-  const cwd = process.cwd()
-  const options = processOptions(cwd, {
-    onStart: ['init-start.mp3'],
-    onSuitePass: [],
-    onSuiteFailure: []
-  }, {})
-  a.satisfy(options, {
-    onStart: ['init-start.mp3'],
-    onSuitePass: [],
-    onSuiteFailure: []
-  })
-})
-
-test('jest config merge with rc config', () => {
-  const cwd = process.cwd()
-  const options = processOptions(
-    cwd,
-    {
-      onStart: ['init-start.mp3'],
-      onSuitePass: [],
-      onSuiteFailure: []
-    },
-    {
-      onStart: 'audio/onSuitePass/昇格.mp3'
-    })
-  a.satisfy(options, {
-    onStart: ['init-start.mp3', 'audio/onSuitePass/昇格.mp3'],
-    onSuitePass: [],
-    onSuiteFailure: []
-  })
-})
-
-test('no audio defined', () => {
-  const cwd = process.cwd()
-  processOptions(
-    cwd, {
-      onStart: [],
-      onSuitePass: [],
-      onSuiteFailure: []
-    }, {
-    })
-})
-
-test('no valid audio defined', () => {
-  const cwd = process.cwd()
-  processOptions(
-    cwd, {
-      onStart: ['invalid'],
-      onSuitePass: [],
-      onSuiteFailure: []
-    }, {
-    })
 })

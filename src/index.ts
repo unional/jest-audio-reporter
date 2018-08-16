@@ -1,15 +1,21 @@
 import Player from 'play-sound';
-import { getProcessedRCOption, Options, processOptions, rawRCOptions, RuntimeOptions } from './options';
+import { createLog, logOptions } from './log';
+import { processOptions, Options, rawRCOptions, RuntimeOptions } from './options';
 import { store } from './store';
 
-const rcOptions = getProcessedRCOption(rawRCOptions)
 const player = Player({})
+const rcOptions = processOptions(rawRCOptions)
 
 export = class AudioReporter {
+  log = createLog()
   player = player
   options: RuntimeOptions
-  constructor(public globalConfig: jest.GlobalConfig, options: Partial<Options>) {
-    this.options = processOptions(globalConfig.rootDir, rcOptions, options)
+  constructor(public globalConfig: jest.GlobalConfig, jestOptions: Partial<Options>) {
+    if (jestOptions.debug) {
+      this.log.enabled = true
+    }
+    logOptions({ log: this.log }, rawRCOptions, rcOptions)
+    this.options = rcOptions
   }
   onRunStart(results: jest.AggregatedResult, options: jest.ReporterOnStartOptions) {
     if (store.completeAudio) {
