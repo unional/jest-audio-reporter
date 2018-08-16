@@ -11,38 +11,58 @@
 
 Audio reporter for [`jest`](https://jestjs.io/)
 
-## Configuration
+## Usage
 
-You can configure `jest-audio-reporter` inside `jest` configuration:
+To use `jest-audio-reporter`,
+add it to the `reporters` section of the Jest configuration:
 
 ```js
-// package.json
 {
   "jest": {
     "reporters": [
-      "default",
-      [ "jest-audio-reporter", {
-        "onStart": "<path(s)-to-audio>",
-        "onStartThreshold": 3,
-        "onSuitePass": "<path(s)-to-audio>",
-        "onSuiteFailure": "<path(s)-to-audio>"
-      }]
+      "default", // using default reporter
+      "jest-audio-reporter"
     ]
   }
 }
 ```
 
-Since the audio to be played is more of a personal preference,
-`jest-audio-reporter` supports configuration through `.jest-audio-reporterrc` file.
+You can enable debug mode to see if your configuration has problem:
+
+```js
+{
+  "jest": {
+    "reporters": [
+      "default",
+      ["jest-audio-reporter", { debug: true }]
+    ]
+  }
+}
+```
+
+## Configuration
+
+To configure `jest-audio-reporter`, you need to create a `.jest-audio-reporterrc` file.
+For example:
+
+```js
+{
+  "onStart": "<path(s)-to-audio>",
+  "onStartThreshold": 3,
+  "onSuitePass": "<path(s)-to-audio>",
+  "onSuiteFailure": "<path(s)-to-audio>"
+}
+```
+
 Most likely you will put this file under the root of all your projects or in your home folder.
 Please refer to [`rc`](https://www.npmjs.com/package/rc) for more information.
 
 ## Options
 
-- `onStart`: Specify the audio file(s) to play when the test suite starts. When specifying an array, one of the file will be picked at random.
-- `onStartThreshold`: `onStart` will not play audio if the tests are estimated to finish less when this threshold. Default is 3 seconds.
-- `onSuitePass`: Specify the audio file(s) to play when the test suite passes. When specifying an array, one of the file will be picked at random.
-- `onSuiteFailure`: Specify the audio file(s) to play when the test suite failes. When specifying an array, one of the file will be picked at random.
+- `onStart: string | string[]`: Specify the audio file(s) to play when the test suite starts. When specifying an array, one of the file will be picked at random.
+- `onStartThreshold: number`: `onStart` will not play audio if the tests are estimated to finish less when this threshold. Default is 3 seconds.
+- `onSuitePass: string | string[]`: Specify the audio file(s) to play when the test suite passes. When specifying an array, one of the file will be picked at random.
+- `onSuiteFailure: string | string[]`: Specify the audio file(s) to play when the test suite failes. When specifying an array, one of the file will be picked at random.
 
 ## Watch mode
 
