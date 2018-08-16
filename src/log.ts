@@ -4,8 +4,10 @@ export function createLog() {
   return {
     enabled: false,
     debug(...args) {
-      if (this.enabled && !state.devel)
+      if (this.enabled && !state.devel) {
+        // istanbul ignore next
         console.info(...args)
+      }
     }
   }
 }
