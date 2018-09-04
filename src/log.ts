@@ -15,10 +15,15 @@ export function createLog() {
 }
 
 export function logOptions({ log }, raw, options) {
-  log.debug(`configs location:
+  if (!raw.configs) {
+    log.debug('no config detected')
+  }
+  else {
+    log.debug(`configs location:
 ${raw.configs.map(c => `  ${c}`).join('\n')}
 
 options:
 ${JSON.stringify(options, undefined, 2)}
 `)
+  }
 }

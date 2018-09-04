@@ -34,6 +34,14 @@ options:
   ])
 })
 
+test('no config prints no config detected', () => {
+  const log = createLog()
+  log.enabled = true
+  let actual
+  log.writer = { info(msg) { actual = msg } } as any
+  logOptions({ log }, {}, undefined)
+  t.strictEqual(actual, 'no config detected')
+})
 
 function context() {
   return {
