@@ -6,6 +6,7 @@ import { store } from './store';
 const player = Player({})
 const rcOptions = processOptions(rawRCOptions)
 
+// istanbul ignore next
 process.on('exit', () => {
   if (store.startAudio) store.startAudio.kill()
   if (store.completeAudio) store.completeAudio.kill()
