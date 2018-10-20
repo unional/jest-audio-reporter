@@ -1,6 +1,4 @@
 version: 2
-environment:
-  NPM_VERSION: "5.7.0"
 workflows:
   version: 2
   all:
@@ -10,8 +8,8 @@ workflows:
       - node8
       - release:
           filters:
-              branches:
-                  only: master
+            branches:
+              only: master
           requires:
             - node-latest
             - node9
