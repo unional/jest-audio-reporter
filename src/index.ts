@@ -6,6 +6,11 @@ import { store } from './store';
 const player = Player({})
 const rcOptions = processOptions(rawRCOptions)
 
+process.on('exit', () => {
+  if (store.startAudio) store.startAudio.kill()
+  if (store.completeAudio) store.completeAudio.kill()
+})
+
 export = class AudioReporter {
   log = createLog()
   player = player
