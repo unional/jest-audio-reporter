@@ -17,7 +17,7 @@ workflows:
 jobs:
   node-latest:
     docker:
-      - image: circleci/node:~~~~~~~~~~
+      - image: circleci/node:10
     steps:
       - checkout
       - restore_cache:
@@ -84,7 +84,7 @@ jobs:
           path: reports/junit
   release:
     docker:
-      - image: circleci/node:~~~~~~~~~~
+      - image: circleci/node:10
     steps:
       - checkout
       - restore_cache:
