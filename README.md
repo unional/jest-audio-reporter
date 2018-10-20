@@ -9,7 +9,7 @@
 [![Greenkeeper badge][green-keeper-image]][green-keeper-url]
 [![semantic-release][semantic-release-image]][semantic-release-url]
 
-Audio reporter for [`jest`](https://jestjs.io/)
+Play a tune while running [`jest`](https://jestjs.io/).
 
 ## Usage
 
