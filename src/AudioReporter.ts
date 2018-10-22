@@ -95,9 +95,7 @@ function isWatch(globalConfig) {
   return globalConfig.watch || globalConfig.watchAll
 }
 
-function getAfPlayOption({ volume }: { volume: number | undefined }) {
-  if (volume === undefined) return {}
-
+function getAfPlayOption({ volume }: { volume: number }) {
   // https://ss64.com/osx/afplay.html
   // According to the link, the volume is logarithmic,
   // but I'm not sure what does it mean, as:
@@ -108,9 +106,7 @@ function getAfPlayOption({ volume }: { volume: number | undefined }) {
   return { afplay: ['-v', 1 / (Math.pow(10, Math.log2(1 / volume)))] }
 }
 
-function getMplayerOption({ volume }: { volume: number | undefined }) {
-  if (volume === undefined) return {}
-
+function getMplayerOption({ volume }: { volume: number }) {
   // http://www.mplayerhq.hu/DOCS/man/en/mplayer.1.html search for "-volume"
   return { mplayer: ['-volume', volume * 100] }
 }
