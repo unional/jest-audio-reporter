@@ -12,7 +12,7 @@ test('Will not play onSuitePass if no test ran', () => {
   subject.onRunComplete({}, ar({ numTotalTestSuites: 0 }))
 })
 
-test.only('Will not play onStart if test estimated to take less than 10s to run', () => {
+test('Will not play onStart if test estimated to take less than 10s to run', () => {
   const subject = new AudioReporter(gc(), {})
   subject.options = runtimeOptions({
     onSuitePass: ['audio/onSuitePass/昇格.mp3']
