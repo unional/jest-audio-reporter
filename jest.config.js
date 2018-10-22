@@ -7,7 +7,7 @@ module.exports = {
   },
   'reporters': [
     'default',
-    '<rootDir>/dist/index.js'
+    ['<rootDir>/dist/index.js', { volume: 0.3 }]
   ],
   'roots': [
     '<rootDir>/src'
