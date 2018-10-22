@@ -48,7 +48,7 @@ For example:
 ```js
 {
   "onStart": "<path(s)-to-audio>",
-  "onStartThreshold": 3,
+  "onStartThreshold": 10,
   "onSuitePass": "<path(s)-to-audio>",
   "onSuiteFailure": "<path(s)-to-audio>"
 }
@@ -72,7 +72,7 @@ When `jest` is running in watch mode, the following special behavior applies:
 
 ## For Windows
 
-`jest-audio-reporter` using [`play-sound`](https://www.npmjs.com/package/play-sound) internally.
+`jest-audio-reporter` uses [`play-sound`](https://www.npmjs.com/package/play-sound) internally.
 For Windows, you will need to install [`mplayer`](https://www.mplayerhq.hu/).
 
 ## Audio Copyright Disclaimer
