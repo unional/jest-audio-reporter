@@ -40,7 +40,7 @@ export function processOptions(rawRCOptions) {
   const onSuitePass = processRCFileEntry(rawRCOptions.onSuitePass, dirs)
   const onSuiteFailure = processRCFileEntry(rawRCOptions.onSuiteFailure, dirs)
 
-  const onStartThreshold = rawRCOptions.onStartThreshold !== undefined ? parseInt(rawRCOptions.onStartThreshold, 10) : 3
+  const onStartThreshold = rawRCOptions.onStartThreshold !== undefined ? parseInt(rawRCOptions.onStartThreshold, 10) : 10
 
   return {
     onStartThreshold,
