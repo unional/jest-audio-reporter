@@ -3,11 +3,25 @@ import path from 'path';
 import rc from 'rc';
 
 export interface Options {
+  /**
+   * Enable debug mode.
+   */
   debug: boolean,
-  onStart: string | string[],
-  onStartThreshold: number,
-  onSuitePass: string | string[],
-  onSuiteFailure: string | string[]
+  /**
+   * Master volume. 0 (silent) - 1 (normal).
+   */
+  volume: number
+  /**
+   * Volume for onStart. 0 (silent) - 1 (normal).
+   * Value higher than Master volume is ignored.
+   */
+  onStartVolume: number
+
+  /**
+   * Volume for onPass and onFailure. 0 (silent) - 1 (normal).
+   * Value higher than Master volume is ignored.
+   */
+  onCompleteVolume: number
 }
 
 export interface RuntimeOptions {
@@ -26,7 +40,7 @@ export function processOptions(rawRCOptions) {
   const onSuitePass = processRCFileEntry(rawRCOptions.onSuitePass, dirs)
   const onSuiteFailure = processRCFileEntry(rawRCOptions.onSuiteFailure, dirs)
 
-  const onStartThreshold = rawRCOptions.onStartThreshold !== undefined ? parseInt(rawRCOptions.onStartThreshold, 10) : 3
+  const onStartThreshold = rawRCOptions.onStartThreshold !== undefined ? parseInt(rawRCOptions.onStartThreshold, 10) : 10
 
   return {
     onStartThreshold,

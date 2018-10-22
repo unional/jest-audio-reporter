@@ -15,9 +15,9 @@ describe('processOptions', () => {
       onStartThreshold: 4
     })
   })
-  test('onStartThreshold is default to 3', () => {
+  test('onStartThreshold is default to 10', () => {
     a.satisfy(processOptions({}), {
-      onStartThreshold: 3
+      onStartThreshold: 10
     })
   })
   test('simple string is convert to entry in array', () => {

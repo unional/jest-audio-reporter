@@ -12,23 +12,23 @@ test('Will not play onSuitePass if no test ran', () => {
   subject.onRunComplete({}, ar({ numTotalTestSuites: 0 }))
 })
 
-test('Will not play onStart if test estimated to take less than 3s to run', () => {
+test('Will not play onStart if test estimated to take less than 10s to run', () => {
   const subject = new AudioReporter(gc(), {})
   subject.options = runtimeOptions({
     onSuitePass: ['audio/onSuitePass/昇格.mp3']
   })
 
   subject.player = { play() { throw new Error('should not play') } }
-  subject.onRunStart(ar(), { estimatedTime: 3, showStatus: false })
+  subject.onRunStart(ar(), { estimatedTime: 10, showStatus: false })
 })
 
-test('Will play onStart if test estimated to take more than 3s to run', () => {
+test('Will play onStart if test estimated to take more than 10s to run', () => {
   const subject = new AudioReporter(gc(), {})
   subject.options = runtimeOptions({ onSuitePass: ['audio/onSuitePass/昇格.mp3'] })
 
   const o = new AssertOrder(1)
   subject.player = { play() { o.once(1) } }
-  subject.onRunStart(ar(), { estimatedTime: 3.01, showStatus: false })
+  subject.onRunStart(ar(), { estimatedTime: 10.01, showStatus: false })
 
   o.end()
 })
@@ -44,7 +44,6 @@ test('Will play onStart if there is no estimate', () => {
   o.end()
 })
 
-
 test('pick one if onStart has more than one entry', () => {
   const subject = new AudioReporter(gc(), {})
   subject.options = runtimeOptions({
@@ -58,7 +57,7 @@ test('pick one if onStart has more than one entry', () => {
     }
   }
   for (let i = 0; i < 100; i++)
-    subject.onRunStart(ar(), { estimatedTime: 3.01, showStatus: false })
+    subject.onRunStart(ar(), { estimatedTime: 10.01, showStatus: false })
 
   t(calls[0] * calls[1] > 0)
 })
@@ -160,7 +159,7 @@ describe('watch mode', () => {
 
     const o = new AssertOrder(1)
     subject.player = { play() { return { kill() { o.once(1) } } } }
-    subject.onRunStart(ar(), { estimatedTime: 4, showStatus: false })
+    subject.onRunStart(ar(), { estimatedTime: 11, showStatus: false })
     subject.onRunComplete({}, ar())
     o.end()
   })
@@ -175,7 +174,7 @@ describe('watch mode', () => {
     const o = new AssertOrder(1)
     subject.player = { play() { return { kill() { o.once(1) } } } }
     subject.onRunComplete({}, ar({ numTotalTestSuites: 1, numFailedTestSuites: 0 }))
-    subject.onRunStart(ar(), { estimatedTime: 4, showStatus: false })
+    subject.onRunStart(ar(), { estimatedTime: 11, showStatus: false })
     o.end()
   })
   test('kill onSuiteFailure when run starts', () => {
@@ -189,7 +188,7 @@ describe('watch mode', () => {
     const o = new AssertOrder(1)
     subject.player = { play() { return { kill() { o.once(1) } } } }
     subject.onRunComplete({}, ar({ numTotalTestSuites: 1, numFailedTestSuites: 1 }))
-    subject.onRunStart(ar(), { estimatedTime: 4, showStatus: false })
+    subject.onRunStart(ar(), { estimatedTime: 11, showStatus: false })
     o.end()
   })
 })
@@ -210,6 +209,114 @@ test('when debug = false, log is not enabled', () => {
   t.strictEqual(subject.log.enabled, false)
 })
 
+test('lower master volume in OSX affect onStart', () => {
+  const subject = new AudioReporter(gc(), { volume: 0.5 })
+  let actual
+  subject.player = { player: 'afplay', play(_file, option) { actual = option } }
+
+  subject.onRunStart(ar({ numTotalTestSuites: 1 }), roso({ estimatedTime: 11 }))
+  t.deepStrictEqual(actual, { afplay: ['-v', 0.1] })
+})
+
+test('lower master volume in OSX affect onComplete', () => {
+  const subject = new AudioReporter(gc(), { volume: 0.5 })
+  let actual
+  subject.player = { player: 'afplay', play(_file, option) { actual = option } }
+
+  subject.onRunComplete(undefined, ar({ numTotalTestSuites: 1 }))
+  t.deepStrictEqual(actual, { afplay: ['-v', 0.1] })
+})
+
+test('lower master volume in Windows affect onStart', () => {
+  const subject = new AudioReporter(gc(), { volume: 0.5 })
+  let actual
+  subject.player = { player: 'mplayer', play(_file, option) { actual = option } }
+
+  subject.onRunStart(ar({ numTotalTestSuites: 1 }), roso({ estimatedTime: 11 }))
+  t.deepStrictEqual(actual, { mplayer: ['-volume', 50] })
+})
+
+test('lower master volume in Windows affect onComplete', () => {
+  const subject = new AudioReporter(gc(), { volume: 0.5 })
+  let actual
+  subject.player = { player: 'mplayer', play(_file, option) { actual = option } }
+
+  subject.onRunComplete(undefined, ar({ numTotalTestSuites: 1 }))
+  t.deepStrictEqual(actual, { mplayer: ['-volume', 50] })
+})
+
+test('lower onStartVolume in OSX affect onStart', () => {
+  const subject = new AudioReporter(gc(), { onStartVolume: 0.5 })
+  let actual
+  subject.player = { player: 'afplay', play(_file, option) { actual = option } }
+
+  subject.onRunStart(ar({ numTotalTestSuites: 1 }), roso({ estimatedTime: 11 }))
+  t.deepStrictEqual(actual, { afplay: ['-v', 0.1] })
+})
+
+test('lower onStartVolume in OSX will not affect onComplete', () => {
+  const subject = new AudioReporter(gc(), { onStartVolume: 0.5 })
+  let actual
+  subject.player = { player: 'afplay', play(_file, option) { actual = option } }
+
+  subject.onRunComplete(undefined, ar({ numTotalTestSuites: 1 }))
+  t.deepStrictEqual(actual, { afplay: ['-v', 1] })
+})
+
+test('lower onStartVolume in Windows affect onStart', () => {
+  const subject = new AudioReporter(gc(), { onStartVolume: 0.5 })
+  let actual
+  subject.player = { player: 'mplayer', play(_file, option) { actual = option } }
+
+  subject.onRunStart(ar({ numTotalTestSuites: 1 }), roso({ estimatedTime: 11 }))
+  t.deepStrictEqual(actual, { mplayer: ['-volume', 50] })
+})
+
+test('lower onStartVolume in Windows will not affect onComplete', () => {
+  const subject = new AudioReporter(gc(), { onStartVolume: 0.5 })
+  let actual
+  subject.player = { player: 'mplayer', play(_file, option) { actual = option } }
+
+  subject.onRunComplete(undefined, ar({ numTotalTestSuites: 1 }))
+  t.deepStrictEqual(actual, { mplayer: ['-volume', 100] })
+})
+
+test('lower onCompleteVolume in OSX will not affect onStart', () => {
+  const subject = new AudioReporter(gc(), { onCompleteVolume: 0.5 })
+  let actual
+  subject.player = { player: 'afplay', play(_file, option) { actual = option } }
+
+  subject.onRunStart(ar({ numTotalTestSuites: 1 }), roso({ estimatedTime: 11 }))
+  t.deepStrictEqual(actual, { afplay: ['-v', 1] })
+})
+
+test('lower onCompleteVolume in OSX affect onComplete', () => {
+  const subject = new AudioReporter(gc(), { onCompleteVolume: 0.5 })
+  let actual
+  subject.player = { player: 'afplay', play(_file, option) { actual = option } }
+
+  subject.onRunComplete(undefined, ar({ numTotalTestSuites: 1 }))
+  t.deepStrictEqual(actual, { afplay: ['-v', 0.1] })
+})
+
+test('lower onCompleteVolume in Windows will not affect onStart', () => {
+  const subject = new AudioReporter(gc(), { onCompleteVolume: 0.5 })
+  let actual
+  subject.player = { player: 'mplayer', play(_file, option) { actual = option } }
+
+  subject.onRunStart(ar({ numTotalTestSuites: 1 }), roso({ estimatedTime: 11 }))
+  t.deepStrictEqual(actual, { mplayer: ['-volume', 100] })
+})
+
+test('lower onCompleteVolume in Windows affect onComplete', () => {
+  const subject = new AudioReporter(gc(), { onCompleteVolume: 0.5 })
+  let actual
+  subject.player = { player: 'mplayer', play(_file, option) { actual = option } }
+
+  subject.onRunComplete(undefined, ar({ numTotalTestSuites: 1 }))
+  t.deepStrictEqual(actual, { mplayer: ['-volume', 50] })
+})
+
 function gc(config: Partial<jest.GlobalConfig> = {}) {
   return config as jest.GlobalConfig
 }
@@ -218,13 +325,16 @@ function ar(results: Partial<jest.AggregatedResult> = {}) {
   return results as jest.AggregatedResult
 }
 
+function roso(options: Partial<jest.ReporterOnStartOptions> = {}) {
+  return options as jest.ReporterOnStartOptions
+}
 
 function runtimeOptions(options: Partial<RuntimeOptions>) {
   return {
     onStart: [],
     onSuitePass: [],
     onSuiteFailure: [],
-    onStartThreshold: 3,
+    onStartThreshold: 10,
     ...options
   }
 }
