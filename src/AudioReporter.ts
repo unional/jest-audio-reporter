@@ -9,6 +9,7 @@ const rcOptions = processOptions(rawRCOptions)
 export class AudioReporter {
   log = createLog()
   player = player
+  disable: boolean
   options: RuntimeOptions
   volume: number | undefined
   onStartVolume: number
@@ -17,6 +18,7 @@ export class AudioReporter {
     if (jestOptions.debug) {
       this.log.enabled = true
     }
+    this.disable = !!jestOptions.disable
     this.volume = jestOptions.volume
     this.onStartVolume = jestOptions.onStartVolume || 0.5
     this.onCompleteVolume = jestOptions.onCompleteVolume
@@ -25,6 +27,8 @@ export class AudioReporter {
     this.options = rcOptions
   }
   onRunStart(results: jest.AggregatedResult, options: jest.ReporterOnStartOptions) {
+    if (this.disable) return
+
     if (store.completeAudio) {
       store.completeAudio.kill()
       store.completeAudio = undefined
@@ -39,6 +43,8 @@ export class AudioReporter {
     store.startAudio = this.player.play(file, this.getPlayOption({ volume }))
   }
   onRunComplete(_contexts, results: jest.AggregatedResult) {
+    if (this.disable) return
+
     if (store.startAudio) {
       store.startAudio.kill()
       store.startAudio = undefined

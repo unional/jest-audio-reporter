@@ -21,19 +21,12 @@ add it to the `reporters` section of the Jest configuration:
   "jest": {
     "reporters": [
       "default", // using default reporter
-      "jest-audio-reporter"
-    ]
-  }
-}
-```
-
-You can enable debug mode to see if your configuration has problem:
-
-```js
-{
-  "jest": {
-    "reporters": [
-      "default",
+      "jest-audio-reporter",
+      // Adjust volume 0 (silent) - 1 (normal)
+      ["jest-audio-reporter", { volume: 1, onStartVolume: 1, onCompleteVolume: 1 }]
+      // disable it
+      ["jest-audio-reporter", { disable: true }]
+      // to enable debug mode to see why no tune is playing
       ["jest-audio-reporter", { debug: true }]
     ]
   }

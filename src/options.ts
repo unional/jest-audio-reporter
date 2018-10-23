@@ -22,6 +22,7 @@ export interface Options {
    * Value higher than Master volume is ignored.
    */
   onCompleteVolume: number
+  disable: boolean
 }
 
 export interface RuntimeOptions {
