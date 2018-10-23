@@ -11,14 +11,14 @@ export class AudioReporter {
   player = player
   options: RuntimeOptions
   volume: number | undefined
-  onStartVolume: number | undefined
+  onStartVolume: number
   onCompleteVolume: number | undefined
   constructor(public globalConfig: jest.GlobalConfig, jestOptions: Partial<Options>) {
     if (jestOptions.debug) {
       this.log.enabled = true
     }
     this.volume = jestOptions.volume
-    this.onStartVolume = jestOptions.onStartVolume
+    this.onStartVolume = jestOptions.onStartVolume || 0.5
     this.onCompleteVolume = jestOptions.onCompleteVolume
 
     logOptions({ log: this.log }, rawRCOptions, rcOptions)
@@ -69,7 +69,7 @@ export class AudioReporter {
     }
   }
   private getEffectiveOnStartVolume() {
-    return Math.min(this.volume || 1, this.onStartVolume || 1)
+    return Math.min(this.volume || 1, this.onStartVolume)
   }
   private getEffectiveOnCompleteVolume() {
     return Math.min(this.volume || 1, this.onCompleteVolume || 1)
