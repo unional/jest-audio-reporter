@@ -317,6 +317,18 @@ test('lower onCompleteVolume in Windows affect onComplete', () => {
   t.deepStrictEqual(actual, { mplayer: ['-volume', 25] })
 })
 
+test('disable will not play when complete', async () => {
+  const subject = new AudioReporter(gc(), { disable: true })
+  subject.player = { player: 'mplayer', play() { throw new Error('should not call') } }
+  await subject.onRunComplete(undefined, ar({ numTotalTestSuites: 1 }))
+})
+
+test('disable will not play when complete', () => {
+  const subject = new AudioReporter(gc(), { disable: true })
+  subject.player = { player: 'mplayer', play() { throw new Error('should not call') } }
+  subject.onRunStart(ar({ numTotalTestSuites: 1 }), roso({ estimatedTime: 11 }))
+})
+
 function gc(config: Partial<jest.GlobalConfig> = {}) {
   return config as jest.GlobalConfig
 }

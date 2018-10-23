@@ -39,9 +39,9 @@
     "rc": "^1.2.8"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.5",
+    "@types/jest": "^23.3.7",
     "@types/node": "^10.12.0",
-    "assertron": "^5.1.4",
+    "assertron": "^5.2.0",
     "codecov": "^3.1.0",
     "dependency-check": "^3.2.1",
     "eslint": "^5.7.0",
