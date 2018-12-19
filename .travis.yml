@@ -15,6 +15,7 @@ branches:
     - master
     - /^greenkeeper.*$/
 script:
+  - npm i --no-save jest_junit
   - npm run verify
   - ./scripts/run-on-node-version.sh 11 "npm install -g codacy-coverage && cat ./coverage/lcov.info | codacy-coverage"
   - ./scripts/run-on-node-version.sh 11 "npm install -g coveralls && cat ./coverage/lcov.info | coveralls"
