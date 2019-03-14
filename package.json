@@ -38,6 +38,6 @@
   "devDependencies": {
     "@unional/devpkg-node": "^1.1.1",
     "assertron": "^5.2.3",
-    "satisfier": "^4.5.0"
+    "satisfier": "^5.0.0"
   }
 }
