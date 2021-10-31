@@ -23,14 +23,15 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.base.json",
+    "build+depcheck": "run-s build depcheck",
     "clean": "rimraf dist",
-    "dc": "yarn dependency-check",
-    "dependency-check": "run-p depcheck:unused depcheck:missing",
+    "coverage": "jest --coverage",
+    "depcheck": "run-p depcheck:unused depcheck:missing",
     "depcheck:unused": "dependency-check . --unused --no-dev -i @jest/reporters -i @jest/test-result -i @jest/types",
     "depcheck:missing": "dependency-check . --missing --no-dev",
     "lint": "eslint --ext=ts,js .",
     "test": "jest",
-    "verify": "yarn lint && yarn build && yarn dependency-check && jest --coverage",
+    "verify": "run-p build+depcheck lint coverage",
     "watch": "jest --watch"
   },
   "husky": {
