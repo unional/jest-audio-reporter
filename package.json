@@ -24,11 +24,13 @@
   "scripts": {
     "build": "tsc -p tsconfig.base.json",
     "clean": "rimraf dist",
-    "dc": "npm run dependency-check",
-    "dependency-check": "dependency-check . --unused --no-dev && dependency-check . --missing --no-dev",
+    "dc": "yarn dependency-check",
+    "dependency-check": "run-p depcheck:unused depcheck:missing",
+    "depcheck:unused": "dependency-check . --unused --no-dev -i @jest/reporters -i @jest/test-result -i @jest/types",
+    "depcheck:missing": "dependency-check . --missing --no-dev",
     "lint": "eslint --ext=ts,js .",
     "test": "jest",
-    "verify": "npm run lint && npm run build && npm run dependency-check && jest --coverage",
+    "verify": "yarn lint && yarn build && yarn dependency-check && jest --coverage",
     "watch": "jest --watch"
   },
   "husky": {
@@ -66,6 +68,7 @@
     "jest-watch-toggle-config": "^2.0.1",
     "jest-watch-typeahead": "^1.0.0",
     "npm-check-updates": "^11.8.5",
+    "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "satisfier": "^5.1.0",
     "typescript": "^4.4.4"

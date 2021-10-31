@@ -1,6 +1,5 @@
 import fs from 'fs'
 import path from 'path'
-// import rc from 'rc'
 
 export interface Options {
   /**
@@ -31,8 +30,6 @@ export interface RuntimeOptions {
   onSuitePass: string[],
   onSuiteFailure: string[]
 }
-
-// export const rawRCOptions = rc('jest-audio-reporter')
 
 export function processOptions(rawRCOptions) {
   // reversing the config so the first one is the closest.

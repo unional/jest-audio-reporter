@@ -1,6 +1,6 @@
-import { ReporterOnStartOptions } from '@jest/reporters'
-import { AggregatedResult } from '@jest/test-result'
-import { Config } from '@jest/types'
+import type { ReporterOnStartOptions } from '@jest/reporters'
+import type { AggregatedResult } from '@jest/test-result'
+import type { Config } from '@jest/types'
 import Player from 'play-sound'
 import rc from 'rc'
 
