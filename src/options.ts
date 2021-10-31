@@ -10,18 +10,18 @@ export interface Options {
   /**
    * Master volume. 0 (silent) - 1 (normal).
    */
-  volume: number
+  volume: number,
   /**
    * Volume for onStart. 0 (silent) - 1 (normal).
    * Value higher than Master volume is ignored.
    */
-  onStartVolume: number
+  onStartVolume: number,
 
   /**
    * Volume for onPass and onFailure. 0 (silent) - 1 (normal).
    * Value higher than Master volume is ignored.
    */
-  onCompleteVolume: number
+  onCompleteVolume: number,
   disable: boolean
 }
 
