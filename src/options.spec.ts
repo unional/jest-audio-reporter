@@ -1,6 +1,6 @@
-import a from 'assertron';
-import path from 'path';
-import { processOptions } from './options';
+import a from 'assertron'
+import path from 'path'
+import { processOptions } from './options'
 
 describe('processOptions', () => {
   test('no config returns options with empty array', () => {

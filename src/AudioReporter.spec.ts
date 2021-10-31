@@ -1,8 +1,11 @@
-import t from 'assert';
-import { AssertOrder } from 'assertron';
-import AudioReporter from '.';
-import { RuntimeOptions } from './options';
-import { store } from './store';
+import { ReporterOnStartOptions } from '@jest/reporters'
+import { AggregatedResult } from '@jest/test-result'
+import { Config } from '@jest/types'
+import t from 'assert'
+import { AssertOrder } from 'assertron'
+import AudioReporter from '.'
+import { RuntimeOptions } from './options'
+import { store } from './store'
 
 test('Will not play onSuitePass if no test ran', () => {
   const subject = new AudioReporter(gc(), {})
@@ -329,16 +332,16 @@ test('disable will not play when complete', () => {
   subject.onRunStart(ar({ numTotalTestSuites: 1 }), roso({ estimatedTime: 11 }))
 })
 
-function gc(config: Partial<jest.GlobalConfig> = {}) {
-  return config as jest.GlobalConfig
+function gc(config: Partial<Config.GlobalConfig> = {}) {
+  return config as Config.GlobalConfig
 }
 
-function ar(results: Partial<jest.AggregatedResult> = {}) {
-  return results as jest.AggregatedResult
+function ar(results: Partial<AggregatedResult> = {}) {
+  return results as AggregatedResult
 }
 
-function roso(options: Partial<jest.ReporterOnStartOptions> = {}) {
-  return options as jest.ReporterOnStartOptions
+function roso(options: Partial<ReporterOnStartOptions> = {}) {
+  return options as ReporterOnStartOptions
 }
 
 function runtimeOptions(options: Partial<RuntimeOptions>) {
