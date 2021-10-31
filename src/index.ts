@@ -1,4 +1,4 @@
-import { store } from './store';
+import { store } from './store'
 
 // istanbul ignore next
 process.on('exit', () => {
@@ -8,4 +8,4 @@ process.on('exit', () => {
 
 import { AudioReporter } from './AudioReporter'
 
-export = AudioReporter
+export default AudioReporter

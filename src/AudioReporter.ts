@@ -1,32 +1,37 @@
-import Player from 'play-sound';
-import { createLog, logOptions } from './log';
-import { processOptions, Options, rawRCOptions, RuntimeOptions } from './options';
-import { store } from './store';
+import type { ReporterOnStartOptions } from '@jest/reporters'
+import type { AggregatedResult } from '@jest/test-result'
+import type { Config } from '@jest/types'
+import Player from 'play-sound'
+import rc from 'rc'
 
-const player = Player({})
-const rcOptions = processOptions(rawRCOptions)
+import { createLog, logOptions } from './log'
+import { Options, processOptions, RuntimeOptions } from './options'
+import { store } from './store'
 
 export class AudioReporter {
   log = createLog()
-  player = player
+  player
   disable: boolean
   options: RuntimeOptions
   volume: number | undefined
   onStartVolume: number
   onCompleteVolume: number | undefined
-  constructor(public globalConfig: jest.GlobalConfig, jestOptions: Partial<Options>) {
+  constructor(public globalConfig: Config.GlobalConfig, jestOptions: Partial<Options>) {
     if (jestOptions.debug) {
       this.log.enabled = true
     }
+    this.player = Player({})
     this.disable = !!jestOptions.disable
     this.volume = jestOptions.volume
     this.onStartVolume = jestOptions.onStartVolume || 0.5
     this.onCompleteVolume = jestOptions.onCompleteVolume
 
+    const rawRCOptions = rc('jest-audio-reporter')
+    const rcOptions = processOptions(rawRCOptions)
     logOptions({ log: this.log }, rawRCOptions, rcOptions)
     this.options = rcOptions
   }
-  onRunStart(results: jest.AggregatedResult, options: jest.ReporterOnStartOptions) {
+  onRunStart(results: AggregatedResult, options: ReporterOnStartOptions) {
     if (this.disable) return
 
     if (store.completeAudio) {
@@ -42,7 +47,7 @@ export class AudioReporter {
     const volume = this.getEffectiveOnStartVolume()
     store.startAudio = this.player.play(file, this.getPlayOption({ volume }))
   }
-  onRunComplete(_contexts, results: jest.AggregatedResult) {
+  onRunComplete(_contexts, results: AggregatedResult) {
     if (this.disable) return
 
     if (store.startAudio) {

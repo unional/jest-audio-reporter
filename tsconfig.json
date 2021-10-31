@@ -1,8 +1,5 @@
 {
   "extends": "./tsconfig.base.json",
-  "atom": {
-    "rewriteTsconfig": false
-  },
   "buildOnSave": false,
   "compileOnSave": false,
   "compilerOptions": {
@@ -13,6 +10,7 @@
     ]
   },
   "include": [
-    "src"
+    "src",
+    "test.js"
   ]
 }

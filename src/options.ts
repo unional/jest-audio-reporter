@@ -1,6 +1,5 @@
-import fs from 'fs';
-import path from 'path';
-import rc from 'rc';
+import fs from 'fs'
+import path from 'path'
 
 export interface Options {
   /**
@@ -10,18 +9,18 @@ export interface Options {
   /**
    * Master volume. 0 (silent) - 1 (normal).
    */
-  volume: number
+  volume: number,
   /**
    * Volume for onStart. 0 (silent) - 1 (normal).
    * Value higher than Master volume is ignored.
    */
-  onStartVolume: number
+  onStartVolume: number,
 
   /**
    * Volume for onPass and onFailure. 0 (silent) - 1 (normal).
    * Value higher than Master volume is ignored.
    */
-  onCompleteVolume: number
+  onCompleteVolume: number,
   disable: boolean
 }
 
@@ -31,8 +30,6 @@ export interface RuntimeOptions {
   onSuitePass: string[],
   onSuiteFailure: string[]
 }
-
-export const rawRCOptions = rc('jest-audio-reporter')
 
 export function processOptions(rawRCOptions) {
   // reversing the config so the first one is the closest.
