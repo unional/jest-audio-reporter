@@ -1660,6 +1660,11 @@ acorn@^8.0.5, acorn@^8.2.4:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.5.0.tgz#4512ccb99b3698c752591e9bb4472e38ad43cee2"
   integrity sha512-yXbYeFy+jUuYd3/CDcg2NkIYE991XYX/bje7LmjJigUciaeO1JR4XxXgCIV1/Zc/dRuFEyw1L0pbA+qynJkW5Q==
 
+acorn@^8.6.0:
+  version "8.7.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.7.0.tgz#90951fde0f8f09df93549481e5fc141445b791cf"
+  integrity sha512-V/LGr1APy+PXIwKebEWrkZPwoeoF+w1jiOBUmuxuiUIaOHtob8Qc9BTrYo7VuI5fR8tqsy+buA2WFooR5olqvQ==
+
 agent-base@6, agent-base@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-6.0.2.tgz#49fff58577cfee3f37176feab4c22e00f86d7f77"
@@ -6233,6 +6238,13 @@ safe-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
+satisfier@5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/satisfier/-/satisfier-5.1.1.tgz#42a900d124d9b7474e9a62e6dd777beda36ca512"
+  integrity sha512-Kq2Sakkb2QxnCbVLaP7WiXIMl0IFAgTpEfwt+XpHGJ9B/SsCKCShX4Tq1zdVzCKi4xZqTXTOHlb1v4Vd8ak1zA==
+  dependencies:
+    tersify "^3.7.9"
+
 satisfier@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/satisfier/-/satisfier-5.1.0.tgz#d8d335b845200ef04e2c759126ec875cb7926605"
@@ -6742,6 +6754,15 @@ tersify@^3.0.6, tersify@^3.7.0:
     is-buffer "^2.0.5"
     unpartial "^0.6.3"
 
+tersify@^3.7.9:
+  version "3.7.11"
+  resolved "https://registry.yarnpkg.com/tersify/-/tersify-3.7.11.tgz#7aec8fc098c3d48ff4194e984ca5811a8d3de4d2"
+  integrity sha512-hE5acNpA6dXoNGRnSCrJFhPwLuihXnKHdxmPa1/EcCgv/6OF3LDcN2Gd6IyDtaL2IfMjIDySYcgJQIjvMcOeXw==
+  dependencies:
+    acorn "^8.6.0"
+    is-buffer "^2.0.5"
+    unpartial "^0.6.4"
+
 test-exclude@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/test-exclude/-/test-exclude-6.0.0.tgz#04a8698661d805ea6fa293b6cb9e63ac044ef15e"
@@ -7045,6 +7066,11 @@ unpartial@^0.6.1, unpartial@^0.6.3:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/unpartial/-/unpartial-0.6.3.tgz#75557ac68fce3e9fcc983cd76e3d505b3a5ce4a3"
   integrity sha512-U4pMxDxAyV7n5Hp6q9OMjCHLkTU6JwTxzignyXv60u44HlhUmaT+u18AAKM87+EtPkdkOlsSRmzJL4OoHROxbw==
+
+unpartial@^0.6.4:
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/unpartial/-/unpartial-0.6.4.tgz#9cf878d3c8335919b250cfb3393751ca12cc26a4"
+  integrity sha512-t/aGg/x8vW0KCjPB8A6TBB1hd0wnWMze8WD83uUpqSDm99jmhY2ZcHpivlvvSGmPCJ/S5ASZzxeQHga4JTW/4A==
 
 unset-value@^1.0.0:
   version "1.0.0"
