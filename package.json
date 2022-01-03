@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.base.json",
-    "build+depcheck": "run-s build dependency-check",
+    "build+dependency-check": "run-s build dependency-check",
     "clean": "rimraf dist",
     "coverage": "jest --coverage",
     "dependency-check": "run-p dependency-check:unused dependency-check:missing",
@@ -31,9 +31,9 @@
     "dependency-check:missing": "dependency-check . --missing --no-dev",
     "lint": "eslint --ext=ts,js .",
     "release": "npx semantic-release",
-    "size-limit": "",
+    "size-limit": "echo no-op",
     "test": "jest",
-    "verify": "run-p build+depcheck lint coverage",
+    "verify": "run-p build+dependency-check size-limit lint coverage",
     "watch": "jest --watch"
   },
   "husky": {
