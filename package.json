@@ -43,7 +43,7 @@
     }
   },
   "dependencies": {
-    "@jest/reporters": "^27.3.1",
+    "@jest/reporters": "^27.4.4",
     "@jest/test-result": "^27.3.1",
     "@jest/types": "^27.2.5",
     "play-sound": "^1.1.3",
