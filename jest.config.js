@@ -22,9 +22,6 @@ module.exports = {
   ],
   'testEnvironment': 'node',
   'testMatch': ['**/?(*.)+(spec|test|integrate|accept|system|unit).[jt]s?(x)'],
-  transform:{
-    '^.+\\.(t|j)sx?$': ['@swc/jest'],
-  },
   'watchPlugins': [
     'jest-watch-suspend',
     'jest-watch-typeahead/filename',
