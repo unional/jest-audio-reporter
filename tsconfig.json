@@ -1,14 +1,5 @@
 {
   "extends": "./tsconfig.base.json",
-  "buildOnSave": false,
-  "compileOnSave": false,
-  "compilerOptions": {
-    "plugins": [
-      {
-        "name": "tslint-language-service"
-      }
-    ]
-  },
   "include": [
     "ts",
     "test.js"
