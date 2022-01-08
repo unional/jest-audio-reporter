@@ -16,15 +16,15 @@
     "url": "https://github.com/unional/jest-audio-reporter.git"
   },
   "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "cjs/index.js",
+  "typings": "cjs/index.d.ts",
   "files": [
-    "dist",
+    "cjs",
     "ts"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.base.json",
-    "clean": "rimraf dist",
+    "clean": "rimraf cjs dist",
     "coverage": "jest --coverage",
     "depscheck": "run-p dependency-check:unused dependency-check:missing",
     "dependency-check": "run-p dependency-check:unused dependency-check:missing",
