@@ -60,7 +60,7 @@
     "eslint-plugin-harmony": "^6.0.0",
     "husky": "^8.0.0",
     "jest": "^27.4.7",
-    "jest-junit": "^13.0.0",
+    "jest-junit": "^14.0.0",
     "jest-progress-tracker": "^3.0.0",
     "jest-validate": "^27.4.6",
     "jest-watch-suspend": "^1.1.2",
