@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@jest/reporters": "^29.0.0",
-    "@jest/test-result": "^27.4.6",
+    "@jest/test-result": "^29.0.0",
     "@jest/types": "^29.0.0",
     "play-sound": "^1.1.5",
     "rc": "^1.2.8"
