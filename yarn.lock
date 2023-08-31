@@ -2801,10 +2801,12 @@ fill-range@^7.0.1:
   dependencies:
     to-regex-range "^5.0.1"
 
-find-exec@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/find-exec/-/find-exec-1.0.2.tgz#dd90e77ef50ab380bdb2f6cc508a386606f3d3bd"
-  integrity sha512-/cs763F5i7Nm/aG+hjBv2nJB/Bl2w0tnuZd5bbfcV+WYapn8T4ez3B87H6MgvsmdheDkitj/rHi557wvE+XylQ==
+find-exec@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/find-exec/-/find-exec-1.0.3.tgz#c4b18f795968f1730060776fc52f829b977ad29e"
+  integrity sha512-gnG38zW90mS8hm5smNcrBnakPEt+cGJoiMkJwCU0IYnEb0H2NQk0NIljhNW+48oniCriFek/PH6QXbwsJo/qug==
+  dependencies:
+    shell-quote "^1.8.1"
 
 find-up@5.0.0, find-up@^5.0.0:
   version "5.0.0"
@@ -5265,12 +5267,12 @@ pkg-up@^3.1.0:
   dependencies:
     find-up "^3.0.0"
 
-play-sound@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/play-sound/-/play-sound-1.1.5.tgz#5b44aa0ed59e2ec2f80710210ed783c79b6fb854"
-  integrity sha512-gbdF1iLNyL5r9Ne9YwARGMkrvfR4EL9G1ZLtFPLkI2tQt0kkHw5CHM5E6Gl/lDuuk/Uj/O5Q29Bi08jMK4egbA==
+play-sound@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/play-sound/-/play-sound-1.1.6.tgz#e62ed9daf8506aba959e8fd267c49d9b979d89fa"
+  integrity sha512-09eO4QiXNFXJffJaOW5P6x6F5RLihpLUkXttvUZeWml0fU6x6Zp7AjG9zaeMpgH2ZNvq4GR1ytB22ddYcqJIZA==
   dependencies:
-    find-exec "1.0.2"
+    find-exec "1.0.3"
 
 prelude-ls@^1.2.1:
   version "1.2.1"
@@ -5730,6 +5732,11 @@ shell-quote@^1.6.1:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.3.tgz#aa40edac170445b9a431e17bb62c0b881b9c4123"
   integrity sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw==
+
+shell-quote@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.8.1.tgz#6dbf4db75515ad5bac63b4f1894c3a154c766680"
+  integrity sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==
 
 side-channel@^1.0.4:
   version "1.0.4"
