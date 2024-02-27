@@ -526,11 +526,12 @@
     resolve-global "^2.0.0"
     yargs "^17.0.0"
 
-"@commitlint/config-conventional@^18.0.0":
-  version "18.0.0"
-  resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-18.0.0.tgz#3c7233334e7907dbc925b7fd03d9bc6c7aa776b3"
-  integrity sha512-XZW3MDwhMWwr7pf+jO5F18ohBwrJ8mt+1OPhkVyO8bYrY0dKPE5tPpdXlDt+JCFurl4VnUDPmu6xZ4/cKCH7cA==
+"@commitlint/config-conventional@^19.0.0":
+  version "19.0.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-19.0.0.tgz#3d462be9cd4a3f2676eace218217e487db141e53"
+  integrity sha512-d8lPm+slPUdA8Zof2Y36RqAm/MmAYx/QQIEd2gKbpfLThQK1oYLs+0C3sMPD+4LIq2kh4cnbV9WnPA0P5sN8Ig==
   dependencies:
+    "@commitlint/types" "^19.0.0"
     conventional-changelog-conventionalcommits "^7.0.2"
 
 "@commitlint/config-validator@^19.0.0":
