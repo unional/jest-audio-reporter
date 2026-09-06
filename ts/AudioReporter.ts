@@ -4,9 +4,9 @@ import type { Config } from '@jest/types'
 import Player from 'play-sound'
 import rc from 'rc'
 
-import { createLog, logOptions } from './log'
-import { type Options, processOptions, type RuntimeOptions } from './options'
-import { store } from './store'
+import { createLog, logOptions } from './log.js'
+import { type Options, processOptions, type RuntimeOptions } from './options.js'
+import { store } from './store.js'
 
 export class AudioReporter {
 	log = createLog()

@@ -6,13 +6,13 @@
 		// `target` by hand — `es2015` alone was withholding AggregateError, Error.cause and
 		// everything else added since.
 		"lib": ["es2022"],
-		"module": "commonjs",
-		"moduleResolution": "node",
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
 		"newLine": "LF",
 		"noImplicitAny": false,
 		"noUnusedLocals": true,
 		"noUnusedParameters": false,
-		"outDir": "cjs",
+		"outDir": "esm",
 		"removeComments": false,
 		"sourceMap": true,
 		"strictNullChecks": true,

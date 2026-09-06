@@ -11,6 +11,12 @@
 
 Play a tune while running [`jest`](https://jestjs.io/).
 
+## Requirements
+
+`jest-audio-reporter` is an ES module. It needs Node 20+ and Jest 27+
+(Jest loads a reporter with `requireOrImportModule`, which imports an ES module).
+`require('jest-audio-reporter')` is not supported.
+
 ## Usage
 
 To use `jest-audio-reporter`,

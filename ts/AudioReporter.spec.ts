@@ -3,9 +3,9 @@ import type { ReporterOnStartOptions } from '@jest/reporters'
 import type { AggregatedResult } from '@jest/test-result'
 import type { Config } from '@jest/types'
 import { AssertOrder } from 'assertron'
-import AudioReporter from '.'
-import type { RuntimeOptions } from './options'
-import { store } from './store'
+import AudioReporter from './index.js'
+import type { RuntimeOptions } from './options.js'
+import { store } from './store.js'
 
 test('Will not play onSuitePass if no test ran', () => {
 	const subject = new AudioReporter(gc(), {})

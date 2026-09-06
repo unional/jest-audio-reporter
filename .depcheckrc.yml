@@ -8,5 +8,8 @@ ignores:
   - '@repobuddy/biome'
   # ambient jest globals for the specs
   - '@types/jest'
+  # named by jest.config.js in `transform`, which depcheck's jest parser does not read
+  # (it only understands `preset`)
+  - ts-jest
   # bin, used by the `clean` script
   - rimraf

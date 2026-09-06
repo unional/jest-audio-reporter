@@ -1,4 +1,4 @@
-import { store } from './store'
+import { store } from './store.js'
 
 // istanbul ignore next
 process.on('exit', () => {
@@ -6,6 +6,6 @@ process.on('exit', () => {
 	if (store.completeAudio) store.completeAudio.kill()
 })
 
-import { AudioReporter } from './AudioReporter'
+import { AudioReporter } from './AudioReporter.js'
 
 export default AudioReporter
