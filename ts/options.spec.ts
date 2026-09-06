@@ -1,6 +1,6 @@
 import path from 'node:path'
 import a from 'assertron'
-import { processOptions } from './options'
+import { processOptions } from './options.js'
 
 describe('processOptions', () => {
 	test('no config returns options with empty array', () => {

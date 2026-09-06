@@ -16,16 +16,23 @@
 		"url": "https://github.com/repobuddy/jest-audio-reporter.git"
 	},
 	"license": "MIT",
-	"main": "cjs/index.js",
-	"typings": "cjs/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./esm/index.d.ts",
+			"default": "./esm/index.js"
+		}
+	},
+	"main": "esm/index.js",
+	"typings": "esm/index.d.ts",
 	"files": [
-		"cjs",
+		"esm",
 		"ts",
 		"!ts/**/*.spec.ts"
 	],
 	"scripts": {
 		"build": "tsc -p tsconfig.base.json",
-		"clean": "rimraf cjs coverage dist",
+		"clean": "rimraf cjs esm coverage dist",
 		"coverage": "jest --coverage",
 		"cs": "changeset",
 		"depcheck": "depcheck",

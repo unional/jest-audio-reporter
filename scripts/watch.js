@@ -1,4 +1,4 @@
-const cp = require('node:child_process')
+import cp from 'node:child_process'
 
 let runner
 cp.spawn('tsc', ['-w'], { shell: true }).stdout.on('data', (data) => {

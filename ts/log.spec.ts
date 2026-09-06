@@ -1,5 +1,5 @@
 import t from 'node:assert'
-import { createLog, logOptions } from './log'
+import { createLog, logOptions } from './log.js'
 
 test('enabled log will print', () => {
 	const log = createLog()
