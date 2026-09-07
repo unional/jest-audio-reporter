@@ -1,6 +1,6 @@
 {
 	"name": "jest-audio-reporter",
-	"version": "2.2.5",
+	"version": "3.0.0",
 	"description": "Plays audio on jest events",
 	"keywords": [
 		"jest",
